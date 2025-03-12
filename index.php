@@ -31,12 +31,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = ''; // Clear previous result on new input
     }
 
-    // Handle backspace
-    if (isset($_POST['backspace'])) {
-        $display = $display === '0' || strlen($display) <= 1 ? '0' : substr($display, 0, -1);
-        $result = '';
-    }
-
     // Handle operator input
     if (isset($_POST['operator'])) {
         if ($num1 === '') {
@@ -63,17 +57,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Handle equals
-    if (isset($_POST['equals']) && $num1 !== '' && $operator !== '') {
+    if (isset($_POST['equals'])) {
         $calcResult = calculate($num1, $display, $operator);
-        if (is_numeric($calcResult)) {
-            $result = "$num1 " . getSymbol($operator) . " $display = " . number_format($calcResult, 2, '.', '');
-            $display = number_format($calcResult, 2, '.', '');
-            $num1 = '';
-            $operator = '';
-        } else {
-            $result = $calcResult;
-            $display = 'Error';
-        }
+        $result = number_format($calcResult, 2, '.', '');
+        $display = $result
+        #if ($num1 !== '' && $operator !== '')
+        #$calcResult = calculate($num1, $display, $operator);
+        #if (is_numeric($calcResult)) {
+        #    $display = "$num1 " . getSymbol($operator) . " $display = " . number_format($calcResult, 2, '.', '');
+        #    $result = number_format($calcResult, 2, '.', '');
+        #    $num1 = '';
+        #    $operator = '';
+        #} else {
+        #    $result = $calcResult;
+        #    $display = 'Error';
+        #}
     }
 
     // Handle clear
