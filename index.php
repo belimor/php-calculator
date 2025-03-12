@@ -201,17 +201,17 @@ function getSymbol($operator) {
     <form method="POST" action="">
         <div class="calculator">
             <div class="display"><?php echo htmlspecialchars($_SESSION['display']); ?></div>
-            <?php for ($i = 7; $i <= 9; $i++): ?>
-                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
-            <?php endfor; ?>
+            <button type="submit" name="digit" value="7" class="number">7</button>
+            <button type="submit" name="digit" value="8" class="number">8</button>
+            <button type="submit" name="digit" value="9" class="number">9</button>
             <button type="submit" name="operator" value="divide" class="operator">÷</button>
-            <?php for ($i = 4; $i <= 6; $i++): ?>
-                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
-            <?php endfor; ?>
+            <button type="submit" name="digit" value="4" class="number">4</button>
+            <button type="submit" name="digit" value="5" class="number">5</button>
+            <button type="submit" name="digit" value="6" class="number">6</button>
             <button type="submit" name="operator" value="multiply" class="operator">×</button>
-            <?php for ($i = 1; $i <= 3; $i++): ?>
-                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
-            <?php endfor; ?>
+            <button type="submit" name="digit" value="1" class="number">1</button>
+            <button type="submit" name="digit" value="2" class="number">2</button>
+            <button type="submit" name="digit" value="3" class="number">3</button>
             <button type="submit" name="operator" value="subtract" class="operator">-</button>
             <button type="submit" name="digit" value="0" class="number">0</button>
             <button type="submit" name="digit" value="." class="number">.</button>
