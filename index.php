@@ -31,6 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = ''; // Clear previous result on new input
     }
 
+    // Handle backspace
+    if (isset($_POST['backspace'])) {
+        $display = $display === '0' || strlen($display) <= 1 ? '0' : substr($display, 0, -1);
+        $result = '';
+    }
+
     // Handle operator input
     if (isset($_POST['operator'])) {
         if ($num1 === '') {
@@ -57,21 +63,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Handle equals
-    if (isset($_POST['equals'])) {
+    if (isset($_POST['equals']) && $num1 !== '' && $operator !== '') {
         $calcResult = calculate($num1, $display, $operator);
-        $result = number_format($calcResult, 2, '.', '');
-        $display = $result
-        #if ($num1 !== '' && $operator !== '')
-        #$calcResult = calculate($num1, $display, $operator);
-        #if (is_numeric($calcResult)) {
-        #    $display = "$num1 " . getSymbol($operator) . " $display = " . number_format($calcResult, 2, '.', '');
-        #    $result = number_format($calcResult, 2, '.', '');
-        #    $num1 = '';
-        #    $operator = '';
-        #} else {
-        #    $result = $calcResult;
-        #    $display = 'Error';
-        #}
+        if (is_numeric($calcResult)) {
+            $result = "$num1 " . getSymbol($operator) . " $display = " . number_format($calcResult, 2, '.', '');
+            $display = number_format($calcResult, 2, '.', '');
+            $num1 = '';
+            $operator = '';
+        } else {
+            $result = $calcResult;
+            $display = 'Error';
+        }
     }
 
     // Handle clear
@@ -199,17 +201,17 @@ function getSymbol($operator) {
     <form method="POST" action="">
         <div class="calculator">
             <div class="display"><?php echo htmlspecialchars($_SESSION['display']); ?></div>
-            <button type="submit" name="digit" value="7" class="number">7</button>
-            <button type="submit" name="digit" value="8" class="number">8</button>
-            <button type="submit" name="digit" value="9" class="number">9</button>
+            <?php for ($i = 7; $i <= 9; $i++): ?>
+                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
+            <?php endfor; ?>
             <button type="submit" name="operator" value="divide" class="operator">÷</button>
-            <button type="submit" name="digit" value="4" class="number">4</button>
-            <button type="submit" name="digit" value="5" class="number">5</button>
-            <button type="submit" name="digit" value="6" class="number">6</button>
+            <?php for ($i = 4; $i <= 6; $i++): ?>
+                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
+            <?php endfor; ?>
             <button type="submit" name="operator" value="multiply" class="operator">×</button>
-            <button type="submit" name="digit" value="1" class="number">1</button>
-            <button type="submit" name="digit" value="2" class="number">2</button>
-            <button type="submit" name="digit" value="3" class="number">3</button>
+            <?php for ($i = 1; $i <= 3; $i++): ?>
+                <button type="submit" name="digit" value="<?php echo $i; ?>" class="number"><?php echo $i; ?></button>
+            <?php endfor; ?>
             <button type="submit" name="operator" value="subtract" class="operator">-</button>
             <button type="submit" name="digit" value="0" class="number">0</button>
             <button type="submit" name="digit" value="." class="number">.</button>
