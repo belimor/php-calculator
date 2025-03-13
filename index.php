@@ -197,7 +197,7 @@ function getSymbol($operator) {
     </style>
 </head>
 <body>
-    <h2>Enhanced Calculator</h2>
+    <h2>PHP Calculator</h2>
     <form method="POST" action="">
         <div class="calculator">
             <div class="display"><?php echo htmlspecialchars($_SESSION['display']); ?></div>
